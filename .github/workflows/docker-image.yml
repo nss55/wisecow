@@ -40,7 +40,7 @@ jobs:
 
     - name: Copy kubeconfig
       run: |
-        scp -o StrictHostKeyChecking=no ubuntu@13.201.100.123:~/.kube/config ~/.kube/config
+        scp -o StrictHostKeyChecking=no ubuntu@13.201.100.123 ~/.kube/config ~/.kube/config
 
     - name: Check kubeconfig
       run: cat ~/.kube/config
