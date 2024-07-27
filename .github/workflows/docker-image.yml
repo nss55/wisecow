@@ -24,4 +24,4 @@ jobs:
 
     - name: Build and Push Docker Image
       run: |
-        docker build -t ${{ secrets.USERNAME1 }}/wisecow_img:myapp1 .
+        docker build -t ${{secrets.USERNAME1}}/wisecow_img:myapp1 .
