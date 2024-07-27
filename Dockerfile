@@ -6,10 +6,10 @@ RUN apt-get update && apt-get install -y \
     fortune cowsay netcat-openbsd
 
 # Copy the shell script into the image
-COPY script.sh /script.sh
+COPY wisecow.sh /wisecow.sh
 
 # Make the shell script executable
-RUN chmod +x /script.sh
+RUN chmod +x /wisecow.sh
 
 # Run the shell script
-CMD ["/script.sh"]
+CMD ["/wisecow.sh"]
