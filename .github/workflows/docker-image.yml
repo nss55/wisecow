@@ -21,5 +21,5 @@ jobs:
 
     - name: Build and Push Docker Image
       run: |
-        docker build -t ${{ secrets.MYDOCKERHUB }}/wisecow_img .
+        docker build -t ${{ secrets.MYDOCKERHUB }}/wisecow_img:latest .
         docker push ${{ secrets.MYDOCKERHUB }}/wisecow_img:latest
