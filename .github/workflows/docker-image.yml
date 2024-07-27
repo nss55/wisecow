@@ -46,11 +46,6 @@ jobs:
         kubectl config current-context
         kubectl cluster-info
 
-    - name: Set up kubectl
-      uses: azure/setup-kubectl@v2
-      with:
-        version: '1.24.0'
-
     
 
     - name: Deploy to Kubernetes
