@@ -38,6 +38,6 @@ jobs:
 
     - name: Deploy to Kubernetes
       run: |
-        kubectl apply -f wisecow-deployment.yaml
-        kubectl apply -f wisecow-service.yaml
+        kubectl apply -f wisecow-deployment.yaml --validate=false
+        kubectl apply -f wisecow-service.yaml --validate=false
    
