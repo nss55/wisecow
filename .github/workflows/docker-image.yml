@@ -36,6 +36,23 @@ jobs:
       with:
         ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
+    - name: Copy kubeconfig
+      run: |
+        mkdir -p ~/.kube
+        scp -o StrictHostKeyChecking=no ubuntu@13.233.117.20:~/.kube/config ~/.kube/config
+
+    - name: Validate Kubernetes Context
+      run: |
+        kubectl config current-context
+        kubectl cluster-info
+
+    - name: Set up kubectl
+      uses: azure/setup-kubectl@v2
+      with:
+        version: '1.24.0'
+
+    
+
     - name: Deploy to Kubernetes
       run: |
         kubectl apply -f wisecow-deployment.yaml --validate=false
