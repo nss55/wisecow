@@ -36,6 +36,14 @@ jobs:
       with:
         ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
+    - name: Copy kubeconfig
+      run: |
+        mkdir -p ~/.kube
+        scp -o StrictHostKeyChecking=no ubuntu@13.201.100.123:~/.kube/config ~/.kube/config
+
+    - name: Set KUBECONFIG environment variable
+      run: echo "KUBECONFIG=~/.kube/config" >> $GITHUB_ENV    
+
 
     - name: Validate Kubernetes Context
       run: |
