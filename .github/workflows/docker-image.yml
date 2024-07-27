@@ -38,6 +38,10 @@ jobs:
       with:
         ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
+    - name: Copy kubeconfig
+      run: |
+        scp -o StrictHostKeyChecking=no ubuntu@13.201.100.123:~/.kube/config ~/.kube/config
+
     - name: Check kubeconfig
       run: cat ~/.kube/config
 
