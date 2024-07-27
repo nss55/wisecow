@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - main 
+  workflow_dispatch:     
+
 jobs:
   build-and-push:
     name: Build and Push Docker Image
@@ -36,3 +38,4 @@ jobs:
       uses: webfactory/ssh-agent@v0.7.0
       with:
         ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+   
