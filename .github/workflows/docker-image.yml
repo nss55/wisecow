@@ -36,6 +36,12 @@ jobs:
       with:
         ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
+    - name: Check kubeconfig
+      run: cat ~/.kube/config
+
+    - name: Debug SSH Connection
+      run: ssh -v -o StrictHostKeyChecking=no ubuntu@13.201.100.123 "ls -la ~/.kube/config"
+
     
     - name: Deploy to Kubernetes
       run: |
