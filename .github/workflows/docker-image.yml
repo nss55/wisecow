@@ -18,3 +18,8 @@ jobs:
       with:
         username: ${{ secrets.MYDOCKERHUB }}
         password: ${{ secrets.DOCKER_HUB_PASS }}
+
+    - name: Build and Push Docker Image
+      run: |
+        docker build -t ${{ secrets.MYDOCKERHUB }}/wisecow_img:latest 
+        docker push ${{ secrets.MYDOCKERHUB }}/wisecow_img:latest
