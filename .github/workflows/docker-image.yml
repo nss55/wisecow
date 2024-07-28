@@ -48,12 +48,6 @@ jobs:
         chmod +x kubectl
         sudo mv kubectl /usr/local/bin/
 
-    - name: Install aws-iam-authenticator
-      run: |
-        curl -o aws-iam-authenticator https://amazon-eks.s3-us-west-2.amazonaws.com/1.18.9/2020-11-02/bin/linux/amd64/aws-iam-authenticator
-        chmod +x aws-iam-authenticator
-        sudo mv aws-iam-authenticator /usr/local/bin/
-
     - name: Update kubeconfig
       run: aws eks --region ${{ secrets.AWS_REGION }} update-kubeconfig --name ${{ secrets.AWS_EKS_CLUSTER_NAME }}
 
@@ -66,8 +60,5 @@ jobs:
         KUBECONFIG: /home/runner/.kube/config
       shell: bash
       run: |
-        kubectl apply -f kubernetes/wisecow-deployment.yaml --validate=false
-        kubectl apply -f kubernetes/wisecow-service.yaml --validate=false
-
-    - name: Check Kubernetes Deployment
-      run: kubectl rollout status deployment/myapp-deployment
+        kubectl apply -f kubernetes/wisecow-deployment.yaml 
+        kubectl apply -f kubernetes/wisecow-service.yaml 
