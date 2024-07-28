@@ -57,6 +57,8 @@ jobs:
       run: aws eks --region ${{ secrets.AWS_REGION }} update-kubeconfig --name ${{ secrets.AWS_EKS_CLUSTER_NAME }}
 
     - name: Deploy to EKS
+      env:
+        KUBECONFIG: /home/runner/.kube/config
       run: |
         kubectl apply -f wisecow-deployment.yaml --validate=false
         kubectl apply -f wisecow-service.yaml --validate=false
