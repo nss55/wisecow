@@ -64,8 +64,10 @@ jobs:
     - name: Update kubeconfig
       run: aws eks --region ${{ secrets.AWS_REGION }} update-kubeconfig --name ${{ secrets.AWS_EKS_CLUSTER_NAME }}
     
-    - name: Print kubeconfig
-      run: cat $HOME/.kube/config
+    - name: Validate Kubernetes Context
+      run: |
+        kubectl config current-context
+        kubectl cluster-info
 
 
     - name: Deploy to EKS
