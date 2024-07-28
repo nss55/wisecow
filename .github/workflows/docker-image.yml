@@ -26,25 +26,33 @@ jobs:
         docker push ${{secrets.USERNAME1}}/wisecow_img:myapp1
 
   deploy:
-    name: Deploy to Kubernetes
+    name: Deploy to EKS
     runs-on: ubuntu-latest
     needs: build-and-push
+
     steps:
     - name: Checkout Code
       uses: actions/checkout@v3
 
-    - name: Set up SSH
-      uses: webfactory/ssh-agent@v0.7.0
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v2
       with:
-        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ${{ secrets.AWS_REGION }}
 
-    - name: Debug SSH Connection
-      run: ssh -o StrictHostKeyChecking=no ubuntu@13.201.100.123 "ls -la /home/ubuntu/.kube/config"
+    - name: Set up kubectl
+      uses: azure/setup-kubectl@v2
+      with:
+        version: 'latest' 
 
+    - name: Update kubeconfig
+      run: aws eks --region ${{ secrets.AWS_REGION }} update-kubeconfig --name ${{ secrets.AWS_EKS_CLUSTER_NAME }}
 
-    
-    - name: Deploy to Kubernetes
+    - name: Deploy to EKS
       run: |
-        kubectl apply -f wisecow-deployment.yaml --validate=false
-        kubectl apply -f wisecow-service.yaml --validate=false
-   
+        kubectl apply -f wisecow-deployment.yaml
+        kubectl apply -f wisecow-service.yaml
+
+    - name: Check Kubernetes Deployment
+      run: kubectl rollout status deployment/myapp-deployment
