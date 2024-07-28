@@ -69,6 +69,7 @@ jobs:
     - name: Deploy to EKS
       env:
         KUBECONFIG: /home/runner/.kube/config
+      shell: bash
       run: |
         kubectl apply -f kubernetes/wisecow-deployment.yaml --validate=false
         kubectl apply -f kubernetes/wisecow-service.yaml --validate=false
