@@ -51,7 +51,7 @@ jobs:
     - name: Update kubeconfig
       run: aws eks --region ${{ secrets.AWS_REGION }} update-kubeconfig --name ${{ secrets.AWS_EKS_CLUSTER_NAME }}
 
-    - name: Check kubectl installations
+    - name: Check kubectl installation
       run: kubectl version --client
 
 
