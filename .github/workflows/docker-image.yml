@@ -70,8 +70,8 @@ jobs:
       env:
         KUBECONFIG: /home/runner/.kube/config
       run: |
-        kubectl apply -f wisecow-deployment.yaml --validate=false
-        kubectl apply -f wisecow-service.yaml --validate=false
+        kubectl apply -f kubernetes/wisecow-deployment.yaml --validate=false
+        kubectl apply -f kubernetes/wisecow-service.yaml --validate=false
 
     - name: Check Kubernetes Deployment
       run: kubectl rollout status deployment/myapp-deployment
